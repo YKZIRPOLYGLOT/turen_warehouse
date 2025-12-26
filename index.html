@@ -122,23 +122,23 @@
 <button class="install-btn" id="installBtn" style="display:none;">Install Turen Dashboard</button>
 
 <div class="menu">
-  <a href="login.html">
+  <a href="login.html" class="clickable">
     <div class="counter">0</div>
     <i class="fas fa-table"></i>Buka Sheet Laporan
   </a>
-  <a href="https://forms.gle/b1e3oxiUTXTqKd6K8" target="_blank">
+  <a href="https://forms.gle/b1e3oxiUTXTqKd6K8" target="_blank" class="clickable">
     <div class="counter">0</div>
     <i class="fas fa-cart-shopping"></i>Purchasing
   </a>
-  <a href="https://forms.gle/JM3ucMw5zf6Nz2h38" target="_blank">
+  <a href="https://forms.gle/JM3ucMw5zf6Nz2h38" target="_blank" class="clickable">
     <div class="counter">0</div>
     <i class="fas fa-industry"></i>Produksi
   </a>
-  <a href="https://forms.gle/YqKsmqwQsoamoPEX7" target="_blank">
+  <a href="https://forms.gle/YqKsmqwQsoamoPEX7" target="_blank" class="clickable">
     <div class="counter">0</div>
     <i class="fas fa-dollar-sign"></i>Biaya / Info Produksi
   </a>
-  <a href="https://forms.gle/cfSu9kUYwRuEdfHu9" target="_blank">
+  <a href="https://forms.gle/cfSu9kUYwRuEdfHu9" target="_blank" class="clickable">
     <div class="counter">0</div>
     <i class="fas fa-chart-line"></i>Laporan Penjualan
   </a>
@@ -150,6 +150,14 @@
     navigator.serviceWorker.register('service-worker.js')
       .then(() => console.log('Service Worker Registered'));
   }
+
+  // Counter logic
+  document.querySelectorAll('.clickable').forEach(link => {
+    link.addEventListener('click', function(e){
+      const counter = this.querySelector('.counter');
+      counter.textContent = parseInt(counter.textContent) + 1;
+    });
+  });
 </script>
 
 </body>
