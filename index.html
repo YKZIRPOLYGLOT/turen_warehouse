@@ -98,6 +98,7 @@
     margin-bottom: 5px;
   }
 
+  /* iframe overlay */
   #iframe-overlay {
     position: fixed;
     top: 0;
@@ -149,7 +150,7 @@
 <button class="install-btn" id="installBtn" style="display:none;">Install Turen Dashboard</button>
 
 <div class="menu">
-  <a href="#" onclick="openLink('login.html', this)">
+  <a href="#" onclick="openLink('https://docs.google.com/spreadsheets/d/1C1DwI644B5LJGbfh6MNtYnWdiHeIuqLoOTzNC5s2aG0/edit?gid=0#gid=0', this)">
     <div class="counter">0</div>
     <i class="fas fa-table"></i>Buka Sheet Laporan
   </a>
@@ -195,6 +196,7 @@
   installBtn.addEventListener('click', async () => {
     installBtn.style.display = 'none';
     deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
     deferredPrompt = null;
   });
 
@@ -207,8 +209,8 @@
     const counterDiv = el.querySelector('.counter');
     counterDiv.textContent = parseInt(counterDiv.textContent) + 1;
 
-    // Open local pages in iframe, external Google in browser
-    if(url.startsWith("http")){
+    // Open Google Forms/Sheets in browser
+    if(url.includes("docs.google.com") || url.includes("forms.gle")){
       window.open(url, "_blank", "noopener");
     } else {
       iframe.src = url;
