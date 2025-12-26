@@ -1,5 +1,5 @@
 {
-  "name": "Turen Dashboard",
+  "name": "Turen Dashboard By محمد رزق ويلذاني",
   "short_name": "TurenDashboard",
   "start_url": "./index.html",
   "display": "standalone",
@@ -18,3 +18,4 @@
     }
   ]
 }
+
