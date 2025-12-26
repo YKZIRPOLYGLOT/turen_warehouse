@@ -14,6 +14,9 @@
     flex-direction: column;
     align-items: center;
     padding: 40px 20px;
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
   }
 
   .title {
@@ -32,6 +35,7 @@
     gap: 20px;
     width: 90%;
     max-width: 900px;
+    z-index: 1;
   }
 
   .menu a {
@@ -87,6 +91,34 @@
     font-weight: 600;
   }
 
+  /* iframe overlay */
+  #iframe-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    display: none;
+    flex-direction: column;
+    z-index: 10;
+  }
+
+  #iframe-overlay iframe {
+    flex: 1;
+    border: none;
+  }
+
+  #back-btn {
+    padding: 12px 20px;
+    font-size: 18px;
+    background: #2575fc;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
   @media (max-width: 500px) {
     .menu {
       grid-template-columns: 1fr;
@@ -106,18 +138,25 @@
 </head>
 <body>
 
-<div class="title">Turen Dashboard</div>
+<div class="title">Turen Dashboard By محمد رزق ويلذاني</div>
 <button class="install-btn" id="installBtn" style="display:none;">Install Turen Dashboard</button>
 
 <div class="menu">
-  <a href="https://docs.google.com/spreadsheets/d/1C1DwI644B5LJGbfh6MNtYnWdiHeIuqLoOTzNC5s2aG0/edit?gid=0#gid=0" target="_blank"><i class="fas fa-table"></i>Buka Sheet Laporan</a>
-  <a href="https://forms.gle/b1e3oxiUTXTqKd6K8" target="_blank"><i class="fas fa-cart-shopping"></i>Purchasing</a>
-  <a href="https://forms.gle/JM3ucMw5zf6Nz2h38" target="_blank"><i class="fas fa-industry"></i>Produksi</a>
-  <a href="https://forms.gle/YqKsmqwQsoamoPEX7" target="_blank"><i class="fas fa-dollar-sign"></i>Biaya / Info Produksi</a>
-  <a href="https://forms.gle/cfSu9kUYwRuEdfHu9" target="_blank"><i class="fas fa-chart-line"></i>Laporan Penjualan</a>
+  <a href="#" onclick="openLink('https://docs.google.com/spreadsheets/d/1C1DwI644B5LJGbfh6MNtYnWdiHeIuqLoOTzNC5s2aG0/edit?gid=0#gid=0')"><i class="fas fa-table"></i>Buka Sheet Laporan</a>
+  <a href="#" onclick="openLink('https://forms.gle/b1e3oxiUTXTqKd6K8')"><i class="fas fa-cart-shopping"></i>Purchasing</a>
+  <a href="#" onclick="openLink('https://forms.gle/JM3ucMw5zf6Nz2h38')"><i class="fas fa-industry"></i>Produksi</a>
+  <a href="#" onclick="openLink('https://forms.gle/YqKsmqwQsoamoPEX7')"><i class="fas fa-dollar-sign"></i>Biaya / Info Produksi</a>
+  <a href="#" onclick="openLink('https://forms.gle/cfSu9kUYwRuEdfHu9')"><i class="fas fa-chart-line"></i>Laporan Penjualan</a>
+</div>
+
+<!-- iframe overlay -->
+<div id="iframe-overlay">
+  <button id="back-btn" onclick="closeIframe()">← Back to Dashboard</button>
+  <iframe id="iframe" src=""></iframe>
 </div>
 
 <script>
+  // PWA install
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('service-worker.js')
       .then(() => console.log('Service Worker Registered'));
@@ -138,8 +177,21 @@
     const { outcome } = await deferredPrompt.userChoice;
     deferredPrompt = null;
   });
+
+  // iframe logic
+  const overlay = document.getElementById('iframe-overlay');
+  const iframe = document.getElementById('iframe');
+
+  function openLink(url){
+    iframe.src = url;
+    overlay.style.display = 'flex';
+  }
+
+  function closeIframe(){
+    iframe.src = '';
+    overlay.style.display = 'none';
+  }
 </script>
 
 </body>
 </html>
-
