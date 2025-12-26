@@ -91,6 +91,13 @@
     font-weight: 600;
   }
 
+  .counter {
+    font-size: 16px;
+    font-weight: 700;
+    color: #2575fc;
+    margin-bottom: 5px;
+  }
+
   /* iframe overlay */
   #iframe-overlay {
     position: fixed;
@@ -143,11 +150,26 @@
 <button class="install-btn" id="installBtn" style="display:none;">Install Turen Dashboard</button>
 
 <div class="menu">
-  <a href="#" onclick="openLink('https://docs.google.com/spreadsheets/d/1C1DwI644B5LJGbfh6MNtYnWdiHeIuqLoOTzNC5s2aG0/edit?gid=0#gid=0')"><i class="fas fa-table"></i>Buka Sheet Laporan</a>
-  <a href="#" onclick="openLink('https://forms.gle/b1e3oxiUTXTqKd6K8')"><i class="fas fa-cart-shopping"></i>Purchasing</a>
-  <a href="#" onclick="openLink('https://forms.gle/JM3ucMw5zf6Nz2h38')"><i class="fas fa-industry"></i>Produksi</a>
-  <a href="#" onclick="openLink('https://forms.gle/YqKsmqwQsoamoPEX7')"><i class="fas fa-dollar-sign"></i>Biaya / Info Produksi</a>
-  <a href="#" onclick="openLink('https://forms.gle/cfSu9kUYwRuEdfHu9')"><i class="fas fa-chart-line"></i>Laporan Penjualan</a>
+  <a href="#" onclick="openLink('https://docs.google.com/spreadsheets/d/1C1DwI644B5LJGbfh6MNtYnWdiHeIuqLoOTzNC5s2aG0/edit?gid=0#gid=0', this)">
+    <div class="counter">0</div>
+    <i class="fas fa-table"></i>Buka Sheet Laporan
+  </a>
+  <a href="#" onclick="openLink('https://forms.gle/b1e3oxiUTXTqKd6K8', this)">
+    <div class="counter">0</div>
+    <i class="fas fa-cart-shopping"></i>Purchasing
+  </a>
+  <a href="#" onclick="openLink('https://forms.gle/JM3ucMw5zf6Nz2h38', this)">
+    <div class="counter">0</div>
+    <i class="fas fa-industry"></i>Produksi
+  </a>
+  <a href="#" onclick="openLink('https://forms.gle/YqKsmqwQsoamoPEX7', this)">
+    <div class="counter">0</div>
+    <i class="fas fa-dollar-sign"></i>Biaya / Info Produksi
+  </a>
+  <a href="#" onclick="openLink('https://forms.gle/cfSu9kUYwRuEdfHu9', this)">
+    <div class="counter">0</div>
+    <i class="fas fa-chart-line"></i>Laporan Penjualan
+  </a>
 </div>
 
 <div id="iframe-overlay">
@@ -178,12 +200,16 @@
     deferredPrompt = null;
   });
 
-  // iframe logic
+  // iframe & counter logic
   const overlay = document.getElementById('iframe-overlay');
   const iframe = document.getElementById('iframe');
 
-  function openLink(url){
-    // Google Forms/Sheets cannot be embedded due to login restrictions
+  function openLink(url, el){
+    // Increment counter
+    const counterDiv = el.querySelector('.counter');
+    counterDiv.textContent = parseInt(counterDiv.textContent) + 1;
+
+    // Open Google Forms/Sheets in browser
     if(url.includes("docs.google.com") || url.includes("forms.gle")){
       window.open(url, "_blank", "noopener");
     } else {
