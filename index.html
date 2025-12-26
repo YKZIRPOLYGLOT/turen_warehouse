@@ -98,7 +98,6 @@
     margin-bottom: 5px;
   }
 
-  /* iframe overlay */
   #iframe-overlay {
     position: fixed;
     top: 0;
@@ -154,7 +153,6 @@
     <div class="counter">0</div>
     <i class="fas fa-table"></i>Buka Sheet Laporan
   </a>
-
   <a href="#" onclick="openLink('https://forms.gle/b1e3oxiUTXTqKd6K8', this)">
     <div class="counter">0</div>
     <i class="fas fa-cart-shopping"></i>Purchasing
@@ -197,7 +195,6 @@
   installBtn.addEventListener('click', async () => {
     installBtn.style.display = 'none';
     deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
     deferredPrompt = null;
   });
 
@@ -210,8 +207,8 @@
     const counterDiv = el.querySelector('.counter');
     counterDiv.textContent = parseInt(counterDiv.textContent) + 1;
 
-    // Open Google Forms/Sheets in browser
-    if(url.includes("docs.google.com") || url.includes("forms.gle")){
+    // Open local pages in iframe, external Google in browser
+    if(url.startsWith("http")){
       window.open(url, "_blank", "noopener");
     } else {
       iframe.src = url;
@@ -227,4 +224,3 @@
 
 </body>
 </html>
-
