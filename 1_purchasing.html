@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panduan Administrasi Purchasing | Animasi Modern</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0056b3;
+            --electric-blue: #00d4ff;
+            --soft-blue: #f0f7ff;
+            --silver-gradient: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            --text-main: #2d3436;
+            --white: #ffffff;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(to right, var(--primary-blue), var(--electric-blue), var(--primary-blue));
+            background-size: 200% auto;
+            animation: moveGradient 3s linear infinite;
+            z-index: 1000;
+        }
+
+        @keyframes moveGradient {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 100px 0 60px 0;
+            animation: fadeInDown 1.2s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-weight: 800;
+            font-size: 3.5rem;
+            background: linear-gradient(45deg, #1a1a1a, var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 10px 0;
+        }
+
+        .article-content {
+            background: var(--white);
+            padding: 60px;
+            border-radius: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        /* Intro Box Styling */
+        .intro-box {
+            background: var(--soft-blue);
+            border-left: 5px solid var(--electric-blue);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 50px;
+            color: #444;
+            font-size: 1.1rem;
+        }
+
+        .column-section {
+            margin-bottom: 60px;
+            padding: 30px;
+            border-radius: 20px;
+            transition: all 0.4s ease;
+            border: 1px solid transparent;
+        }
+
+        .column-section:hover {
+            background: #fff;
+            border-color: rgba(0, 212, 255, 0.2);
+            box-shadow: 0 15px 40px rgba(0, 86, 179, 0.08);
+            transform: scale(1.02);
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            color: var(--primary-blue);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        h2::before {
+            content: "";
+            width: 10px;
+            height: 10px;
+            background: var(--electric-blue);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--electric-blue);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .info-box {
+            padding: 25px;
+            border-radius: 18px;
+            transition: 0.3s;
+        }
+
+        .info-box.blue { background: var(--soft-blue); }
+        .info-box.silver { background: var(--silver-gradient); }
+
+        .label {
+            display: block;
+            font-weight: 800;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        /* Conclusion Box Styling */
+        .conclusion-box {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: #f8fafc;
+            padding: 45px;
+            border-radius: 35px;
+            margin-top: 50px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .conclusion-box h3 {
+            color: var(--electric-blue);
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+
+        .conclusion-box ul {
+            padding-left: 20px;
+        }
+
+        .conclusion-box li {
+            margin-bottom: 15px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 80px 0;
+            opacity: 0.6;
+        }
+
+        @media (max-width: 768px) {
+            .info-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 2.2rem; }
+            .article-content { padding: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="progress-bar"></div>
+
+<div class="container">
+    <header>
+        <div data-aos="fade-up">
+            <span style="letter-spacing: 5px; color: #adb5bd; font-weight: 600;">DOCUMENTS v2.0</span>
+            <h1>Sheet “1. Purchasing”</h1>
+            <p>Sistem Pencatatan Logistik & Keuangan Terpadu</p>
+        </div>
+    </header>
+
+    <article class="article-content" data-aos="fade-up" data-aos-delay="200">
+        
+        <div class="intro-box" data-aos="fade-in">
+            <strong>Tentang Tabel Ini:</strong><br>
+            Tabel Purchasing dirancang untuk mencatat setiap aktivitas pengadaan bahan baku secara presisi. Ini bukan sekadar catatan pengeluaran, melainkan instrumen untuk memantau rantai pasok, biaya logistik, dan akuntabilitas keuangan harian perusahaan.
+        </div>
+
+        <div class="column-section" data-aos="fade-right">
+            <h2>Timestamp</h2>
+            <div class="info-grid">
+                <div class="info-box blue">
+                    <span class="label">Tujuan</span>
+                    <p>Mencatat tanggal dan waktu persis saat transaksi atau barang masuk.</p>
+                </div>
+                <div class="info-box silver">
+                    <span class="label">Kegunaan</span>
+                    <p>Memudahkan pelacakan (audit) jika ada selisih stok di kemudian hari.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="column-section" data-aos="fade-left">
+            <h2>Jagung Local (kg)</h2>
+            <div class="info-grid">
+                <div class="info-box blue">
+                    <span class="label">Tujuan</span>
+                    <p>Mencatat volume fisik jagung yang dibeli langsung dari petani atau pengepul lokal.</p>
+                </div>
+                <div class="info-box silver">
+                    <span class="label">Kegunaan</span>
+                    <p>Memantau ketersediaan stok bahan baku dari sumber lokal secara real-time.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="column-section" data-aos="fade-right">
+            <h2>Asal Supplier Jagung Local</h2>
+            <div class="info-grid">
+                <div class="info-box blue">
+                    <span class="label">Tujuan</span>
+                    <p>Mendata daerah asal penyedia jagung lokal.</p>
+                </div>
+                <div class="info-box silver">
+                    <span class="label">Kegunaan</span>
+                    <p>Mengetahui daerah mana yang paling rutin memasok dan membandingkan kualitasnya.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="column-section" data-aos="fade-left">
+            <h2>Harga Beli Jagung Local</h2>
+            <div class="info-grid">
+                <div class="info-box blue">
+                    <span class="label">Tujuan</span>
+                    <p>Mencatat harga satuan jagung lokal pada hari tersebut.</p>
+                </div>
+                <div class="info-box silver">
+                    <span class="label">Kegunaan</span>
+                    <p>Dasar perhitungan modal kerja dan analisis fluktuasi harga pasar.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="column-section" data-aos="zoom-in">
+            <h2>Biaya Transportasi</h2>
+            <div class="info-grid">
+                <div class="info-box blue">
+                    <span class="label">Tujuan</span>
+                    <p>Mencatat ongkos kirim, bahan bakar, atau sewa armada.</p>
+                </div>
+                <div class="info-box silver">
+                    <span class="label">Kegunaan</span>
+                    <p>Komponen penting untuk menghitung HPP (Harga Pokok Penjualan).</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="column-section" data-aos="fade-up">
+            <h2>Biaya Konsumsi & Lain-Lain</h2>
+            <div class="info-grid">
+                <div class="info-box blue">
+                    <span class="label">Fungsi Utama</span>
+                    <p>Mengontrol pengeluaran kecil (petty cash) seperti makan/minum kuli dan retribusi.</p>
+                </div>
+                <div class="info-box silver">
+                    <span class="label">Kegunaan</span>
+                    <p>Memastikan setiap pengeluaran kas memiliki pertanggungjawaban yang jelas.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="conclusion-box" data-aos="flip-up">
+            <h3>Kesimpulan & Kegunaan Utama</h3>
+            <ul>
+                <li><strong>Efisiensi Biaya:</strong> Memantau fluktuasi harga beli dan biaya operasional untuk menjaga margin keuntungan.</li>
+                <li><strong>Akurasi Inventaris:</strong> Memastikan data stok fisik selalu sinkron dengan catatan administratif.</li>
+                <li><strong>Audit Performa Supplier:</strong> Menilai keandalan pemasok berdasarkan frekuensi dan kualitas barang yang datang.</li>
+                <li><strong>Transparansi Finansial:</strong> Menciptakan alur keluar masuk uang yang dapat dipertanggungjawabkan hingga ke unit terkecil.</li>
+            </ul>
+        </div>
+
+    </article>
+
+    <footer>
+        <p>Purwaprana X KopTaNu - Applikasi ini dibuat oleh "M Rizky Wildzany" &copy; 2025 - 2026</p>
+    </footer>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 1000,
+        once: false,
+        mirror: true
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Produksi & Inventory Control</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0056b3;
+            --electric-blue: #00d4ff;
+            --soft-blue: #f0f7ff;
+            --silver-gradient: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            --text-main: #2d3436;
+            --white: #ffffff;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Animated Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(to right, var(--primary-blue), var(--electric-blue), var(--primary-blue));
+            background-size: 200% auto;
+            animation: moveGradient 3s linear infinite;
+            z-index: 1000;
+        }
+
+        @keyframes moveGradient {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 100px 0 60px 0;
+            animation: fadeInDown 1.2s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-weight: 800;
+            font-size: 3.5rem;
+            background: linear-gradient(45deg, #1a1a1a, var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 10px 0;
+        }
+
+        .subtitle {
+            letter-spacing: 5px; 
+            color: #adb5bd; 
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .article-content {
+            background: var(--white);
+            padding: 60px;
+            border-radius: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .intro-text {
+            font-size: 1.15rem;
+            color: #636e72;
+            margin-bottom: 50px;
+            padding: 25px;
+            background: var(--soft-blue);
+            border-radius: 20px;
+            border-left: 5px solid var(--electric-blue);
+        }
+
+        .column-section {
+            margin-bottom: 50px;
+            padding: 20px;
+            border-radius: 25px;
+            transition: all 0.4s ease;
+        }
+
+        .column-section:hover {
+            background: #fff;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 86, 179, 0.06);
+        }
+
+        .category-tag {
+            display: inline-block;
+            padding: 5px 15px;
+            background: var(--silver-gradient);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: #1a1a1a;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        h2::before {
+            content: "";
+            width: 10px;
+            height: 10px;
+            background: var(--electric-blue);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--electric-blue);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .info-box {
+            padding: 25px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .info-box.blue { background: var(--soft-blue); border: 1px solid rgba(0,212,255,0.1); }
+        .info-box.silver { background: var(--silver-gradient); border: 1px solid rgba(173,181,189,0.1); }
+
+        .label {
+            display: block;
+            font-weight: 800;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        p { margin: 0; color: #444; }
+
+        footer {
+            text-align: center;
+            padding: 80px 0;
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .info-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 2.2rem; }
+            .article-content { padding: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="progress-bar"></div>
+
+<div class="container">
+    <header>
+        <div data-aos="fade-up">
+            <span class="subtitle">Operational Report</span>
+            <h1>Sheet “2. Produksi”</h1>
+            <p>Sistem Pengendalian Inventaris & Efisiensi Pengolahan</p>
+        </div>
+    </header>
+
+    <article class="article-content" data-aos="fade-up" data-aos-delay="200">
+        
+        <div class="intro-text" data-aos="fade-up">
+            Tabel ini adalah bagian penting dari sistem pencatatan kita, berfungsi sebagai <strong>Laporan Produksi dan Stok (Inventory Control)</strong>. Dengan tabel ini, kita bisa memantau efisiensi pengolahan jagung serta kondisi stok di gudang.
+        </div>
+
+        <div class="column-section" data-aos="fade-right">
+            <span class="category-tag">BAGIAN 1</span>
+            <h2>Output Produksi (Hasil Jadi)</h2>
+            <div class="info-grid">
+                <div class="info-box blue">
+                    <span class="label">Item: Beras Jagung / Grontol / Empok</span>
+                    <p><strong>Tujuan:</strong> Mencatat berat bersih produk jadi dari pengolahan.</p>
+                </div>
+                <div class="info-box silver">
+                    <span class="label">Kegunaan</span>
+                    <p>Mengetahui volume produk siap jual atau untuk konsumsi internal.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="column-section" data-aos="fade-left">
+            <span class="category-tag">BAGIAN 2</span>
+            <h2>Input & Efisiensi (Bahan Baku)</h2>
+            <div class="info-grid">
+                <div class="info-box blue">
+                    <span class="label">Proses Pengolahan</span>
+                    <p><strong>Tujuan:</strong> Mencatat jumlah jagung lokal/pabrik yang masuk proses produksi.</p>
+                </div>
+                <div class="info-box silver">
+                    <span class="label">Kerusakan/Kehilangan</span>
+                    <p><strong>Tujuan:</strong> Mencatat selisih berat (susut, tercecer, rusak) sebagai indikator efisiensi proses.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="column-section" data-aos="fade-right">
+            <span class="category-tag">BAGIAN 3</span>
+            <h2>Analisis Persentase (Yield)</h2>
+            <div class="info-grid">
+                <div class="info-box blue">
+                    <span class="label">Perhitungan %</span>
+                    <p><strong>Tujuan:</strong> Menghitung persentase hasil jadi dibanding bahan baku.</p>
+                </div>
+                <div class="info-box silver">
+                    <span class="label">Kegunaan</span>
+                    <p>Memantau kualitas pengolahan; yield tinggi berarti proses lebih efisien dan menguntungkan.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="column-section" data-aos="zoom-in">
+            <span class="category-tag">BAGIAN 4</span>
+            <h2>Manajemen Stok (Inventory)</h2>
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                <div class="info-box blue" style="width: 100%; box-sizing: border-box;">
+                    <span class="label">Sisa & Saldo Gudang</span>
+                    <p><strong>Tujuan:</strong> Mencatat jagung yang keluar gudang tapi belum selesai diolah serta menunjukkan saldo akhir bahan baku di gudang.</p>
+                </div>
+                <div class="info-box silver" style="width: 100%; box-sizing: border-box;">
+                    <span class="label">Total Stok (P&L)</span>
+                    <p><strong>Kegunaan:</strong> Mengakumulasi total stok untuk pengambilan keputusan pembelian sebelum stok habis.</p>
+                </div>
+            </div>
+        </div>
+
+    </article>
+
+    <footer>
+        <p>&copy; 2025 - 2026 Production Management System By M Rizky Wildzany| Dirancang untuk Akurasi Data</p>
+    </footer>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 1000,
+        once: false,
+        mirror: true
+    });
+</script>
+
+</body>
+</html>

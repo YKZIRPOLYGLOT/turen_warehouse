@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Penjualan & Real-Time Stock Control</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0056b3;
+            --electric-blue: #00d4ff;
+            --soft-blue: #f0f7ff;
+            --silver-gradient: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            --text-main: #2d3436;
+            --white: #ffffff;
+            --accent-silver: #adb5bd;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Animated Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(to right, var(--primary-blue), var(--electric-blue), var(--primary-blue));
+            background-size: 200% auto;
+            animation: moveGradient 3s linear infinite;
+            z-index: 1000;
+        }
+
+        @keyframes moveGradient {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 100px 0 60px 0;
+            animation: fadeInDown 1.2s ease-out;
+        }
+
+        h1 {
+            font-weight: 800;
+            font-size: 3.2rem;
+            background: linear-gradient(45deg, #1a1a1a, var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 10px 0;
+        }
+
+        .subtitle {
+            letter-spacing: 5px; 
+            color: var(--accent-silver); 
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .article-content {
+            background: var(--white);
+            padding: 60px;
+            border-radius: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            color: #636e72;
+            margin-bottom: 50px;
+            padding: 30px;
+            background: var(--soft-blue);
+            border-radius: 20px;
+            border-right: 5px solid var(--electric-blue);
+        }
+
+        .column-section {
+            margin-bottom: 60px;
+            padding: 10px;
+        }
+
+        h2 {
+            font-size: 1.7rem;
+            color: #1a1a1a;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 2px solid var(--soft-blue);
+            padding-bottom: 10px;
+        }
+
+        h2::before {
+            content: "•";
+            color: var(--electric-blue);
+            font-size: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.6; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .info-box {
+            padding: 25px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .info-box.blue { background: var(--soft-blue); }
+        .info-box.silver { background: var(--silver-gradient); }
+
+        .info-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 86, 179, 0.08);
+        }
+
+        .label {
+            display: block;
+            font-weight: 800;
+            font-size: 0.7rem;
+            letter-spacing: 1.5px;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        .summary-card {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: #f8fafc;
+            padding: 45px;
+            border-radius: 35px;
+            margin-top: 50px;
+            border: 1px solid var(--electric-blue);
+        }
+
+        .summary-card h3 { 
+            color: var(--electric-blue); 
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+        }
+
+        .summary-item {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .summary-item strong { color: var(--white); }
+
+        footer {
+            text-align: center;
+            padding: 80px 0;
+            opacity: 0.6;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .info-grid { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+            h1 { font-size: 2.2rem; }
+            .article-content { padding: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="progress-bar"></div>
+
+<div class="container">
+    <header>
+        <div data-aos="fade-up">
+            <span class="subtitle">Sales & Inventory Report</span>
+            <h1>Sheet “4. Laporan Penjualan”</h1>
+            <p>Memonitor Transaksi, Pembayaran, dan Stok Secara Real-Time</p>
+        </div>
+    </header>
+
+    <article class="article-content" data-aos="fade-up" data-aos-delay="200">
+        
+        <div class="intro-text" data-aos="fade-in">
+            Tabel ini adalah bagian dari <strong>Laporan Penjualan & Stok Produk Jagung</strong>. Fungsinya untuk mencatat setiap transaksi penjualan, kondisi pembayaran, serta sisa stok harian untuk masing-masing jenis produk: <em>Beras Jagung, Grontol, dan Empok.</em>
+        </div>
+
+        <div class="column-section" data-aos="fade-right">
+            <h2>1. Waktu Transaksi</h2>
+            <div class="info-grid">
+                <div class="info-box blue">
+                    <span class="label">Timestamp (Tujuan)</span>
+                    <p>Menunjukkan tanggal dan jam transaksi penjualan dicatat.</p>
+                </div>
+                <div class="info-box silver">
+                    <span class="label">Kegunaan</span>
+                    <p>Untuk histori penjualan, tracking pembayaran harian, dan keperluan audit.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="column-section" data-aos="fade-left">
+            <h2>2. Data Penjualan Produk</h2>
+            <div class="info-box blue full-width">
+                <span class="label">Produk Terjual (kg & Rp)</span>
+                <p><strong>Tujuan:</strong> Mencatat jumlah unit yang dijual dan nilai nominal penjualannya.</p>
+                <p><strong>Kegunaan:</strong> Memudahkan perhitungan pendapatan harian secara spesifik per produk (Beras Jagung, Grontol, atau Empok).</p>
+            </div>
+        </div>
+
+        <div class="column-section" data-aos="fade-right">
+            <h2>3. Kondisi Penjualan (IncoTerm & Logistik)</h2>
+            <div class="info-grid">
+                <div class="info-box blue">
+                    <span class="label">IncoTerm</span>
+                    <p><strong>Tujuan:</strong> Menentukan ketentuan pengiriman (EXW, CIF, dll).</p>
+                    <p><strong>Kegunaan:</strong> Memisahkan biaya pengiriman dan tanggung jawab logistik.</p>
+                </div>
+                <div class="info-box silver">
+                    <span class="label">FOB & Biaya Pengiriman</span>
+                    <p><strong>Tujuan:</strong> Mencatat biaya barang di titik keberangkatan dan biaya transportasi.</p>
+                    <p><strong>Kegunaan:</strong> Menghitung nilai barang siap kirim dan profit bersih per transaksi.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="column-section" data-aos="fade-up">
+            <h2>4. Payment & Piutang</h2>
+            <div class="info-grid">
+                <div class="info-box blue">
+                    <span class="label">Payment Term</span>
+                    <p><strong>Tujuan:</strong> Menentukan status (Lunas, DP, Hutang/Tempo).</p>
+                    <p><strong>Kegunaan:</strong> Mengontrol arus kas (Cash Flow) dan jadwal penagihan.</p>
+                </div>
+                <div class="info-box silver">
+                    <span class="label">Total Tagihan & DP</span>
+                    <p><strong>Tujuan:</strong> Menyajikan total tagihan dan DP yang sudah masuk.</p>
+                    <p><strong>Kegunaan:</strong> Mengetahui sisa pembayaran yang masih harus diterima.</p>
+                </div>
+                <div class="info-box blue full-width" style="border-left: 4px solid var(--electric-blue);">
+                    <span class="label">Administrasi & Bukti</span>
+                    <p>Mencakup status input benar/salah untuk meminimalkan kesalahan, serta dokumentasi identitas pembeli dan bukti pembayaran sebagai referensi follow-up.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="column-section" data-aos="fade-left">
+            <h2>5. Stok / Sisa Produk</h2>
+            <div class="info-grid">
+                <div class="info-box blue">
+                    <span class="label">System Count</span>
+                    <p><strong>Tujuan:</strong> Menunjukkan stok menurut perhitungan otomatis sistem.</p>
+                </div>
+                <div class="info-box silver">
+                    <span class="label">Stok Fisik</span>
+                    <p><strong>Tujuan:</strong> Menunjukkan stok fisik nyata setelah transaksi.</p>
+                    <p><strong>Kegunaan:</strong> Memastikan ketersediaan barang di gudang selalu terkontrol.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="column-section" data-aos="zoom-in">
+            <h2>6. Catatan Tambahan</h2>
+            <div class="info-box silver full-width">
+                <span class="label">Tujuan & Kegunaan</span>
+                <p>Menyimpan informasi tambahan seperti masalah transaksi, retur, atau kondisi stok khusus sebagai referensi evaluasi manajemen harian.</p>
+            </div>
+        </div>
+
+        <div class="summary-card" data-aos="flip-up">
+            <h3>Poin Utama Monitoring</h3>
+            <div class="summary-item">
+                <span>⚡</span>
+                <p><strong>Monitoring Penjualan:</strong> Pantau produk terlaris dan total pendapatan secara instan.</p>
+            </div>
+            <div class="summary-item">
+                <span>💰</span>
+                <p><strong>Kontrol Piutang:</strong> Transparansi status Lunas/DP/Hutang per transaksi untuk kesehatan keuangan.</p>
+            </div>
+            <div class="summary-item">
+                <span>📊</span>
+                <p><strong>Analisis Margin:</strong> Hitung profit bersih dengan akurat melalui data IncoTerm dan biaya logistik.</p>
+            </div>
+            <div class="summary-item">
+                <span>📦</span>
+                <p><strong>Gudang Terkendali:</strong> Manajemen stok real-time untuk menghindari kehilangan peluang penjualan.</p>
+            </div>
+        </div>
+
+    </article>
+
+    <footer>
+        <p>Sales Dashboard Documentation &copy; 2025 - 2026 | Financial & Stock Integrity By M Rizky Wildzany</p>
+    </footer>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 900,
+        once: false,
+        mirror: true
+    });
+</script>
+
+</body>
+</html>

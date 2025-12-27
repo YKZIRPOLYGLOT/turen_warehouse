@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Dashboard | Sistem Laporan Terpadu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0056b3;
+            --electric-blue: #00d4ff;
+            --soft-blue: #f0f7ff;
+            --text-main: #2d3436;
+            --white: #ffffff;
+            --card-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        }
+
+        body {
+            background-color: #f4f7f6;
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(to right, var(--primary-blue), var(--electric-blue), var(--primary-blue));
+            background-size: 200% auto;
+            animation: moveGradient 3s linear infinite;
+            z-index: 1000;
+        }
+
+        @keyframes moveGradient {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 1.2s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-weight: 800;
+            font-size: 3rem;
+            background: linear-gradient(45deg, #1a1a1a, var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 10px 0;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .menu-card {
+            background: var(--white);
+            padding: 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--electric-blue));
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 86, 179, 0.12);
+            border-color: var(--electric-blue);
+        }
+
+        .menu-card:hover::before {
+            opacity: 1;
+        }
+
+        .icon-circle {
+            width: 60px;
+            height: 60px;
+            background: var(--soft-blue);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-blue);
+            transition: 0.3s;
+        }
+
+        .menu-card:hover .icon-circle {
+            background: var(--primary-blue);
+            color: white;
+            transform: rotate(-10deg);
+        }
+
+        .sheet-number {
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #adb5bd;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .sheet-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 15px;
+        }
+
+        .sheet-desc {
+            font-size: 0.95rem;
+            color: #636e72;
+            line-height: 1.6;
+        }
+
+        .footer-info {
+            text-align: center;
+            margin-top: 60px;
+            color: #adb5bd;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .dashboard-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="progress-bar"></div>
+
+<div class="container">
+    <header>
+        <div data-aos="fade-up">
+            <span style="letter-spacing: 5px; color: #adb5bd; font-weight: 600;">PURWAPRANA x KOPTANU</span>
+            <h1>Keterangan dan Penjelasan Laporan Operasional</h1>
+            <p>Pilih modul laporan untuk melihat detail administrasi</p>
+        </div>
+    </header>
+
+    <div class="dashboard-grid">
+        <a href="1_purchasing.html" class="menu-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="icon-circle">🛒</div>
+            <span class="sheet-number">Sheet 01</span>
+            <div class="sheet-title">Purchasing</div>
+            <div class="sheet-desc">Pencatatan pengadaan bahan baku jagung, supplier, dan biaya logistik awal.</div>
+        </a>
+
+        <a href="2_produksi.html" class="menu-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="icon-circle">⚙️</div>
+            <span class="sheet-number">Sheet 02</span>
+            <div class="sheet-title">Produksi</div>
+            <div class="sheet-desc">Laporan hasil jadi (Yield), efisiensi bahan baku, dan kontrol stok gudang.</div>
+        </a>
+
+        <a href="3_biaya_info_produksi.html" class="menu-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="icon-circle">👥</div>
+            <span class="sheet-number">Sheet 03</span>
+            <div class="sheet-title">Biaya Produksi</div>
+            <div class="sheet-desc">Monitoring biaya tenaga kerja, absensi, listrik, dan operasional harian.</div>
+        </a>
+
+        <a href="4_Laporan_Penjualan.html" class="menu-card" data-aos="fade-up" data-aos-delay="400">
+            <div class="icon-circle">📈</div>
+            <span class="sheet-number">Sheet 04</span>
+            <div class="sheet-title">Penjualan</div>
+            <div class="sheet-desc">Catatan transaksi harian, status pembayaran, dan manajemen pengiriman produk.</div>
+        </a>
+
+        <a href="5_IncomeStatementUntungRugi.html" class="menu-card" data-aos="fade-up" data-aos-delay="500">
+            <div class="icon-circle">💰</div>
+            <span class="sheet-number">Sheet 05</span>
+            <div class="sheet-title">Untung / Rugi</div>
+            <div class="sheet-desc">Ringkasan laba bersih, total pengeluaran, dan status validitas laporan.</div>
+        </a>
+
+        <a href="6_catatan_Hutang.html" class="menu-card" data-aos="fade-up" data-aos-delay="600">
+            <div class="icon-circle">📝</div>
+            <span class="sheet-number">Sheet 06</span>
+            <div class="sheet-title">Catatan Hutang</div>
+            <div class="sheet-desc">Manajemen piutang debitur, sisa hutang, dan tracking cicilan pembayaran.</div>
+        </a>
+    </div>
+
+    <div class="footer-info" data-aos="fade-in">
+        <p>Sistem Administrasi Jagung Terpadu &bull; Updated Dec 28, 2025</p>
+    </div>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 800,
+        once: true
+    });
+</script>
+
+</body>
+</html>

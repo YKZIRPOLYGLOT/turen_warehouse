@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manajemen Piutang & Catatan Debitur</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0056b3;
+            --electric-blue: #00d4ff;
+            --soft-blue: #f0f7ff;
+            --silver-gradient: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            --text-main: #2d3436;
+            --white: #ffffff;
+            --status-due: #fdcb6e;
+            --status-paid: #00b894;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(to right, var(--primary-blue), var(--electric-blue), var(--primary-blue));
+            background-size: 200% auto;
+            animation: moveGradient 3s linear infinite;
+            z-index: 1000;
+        }
+
+        @keyframes moveGradient {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 100px 0 60px 0;
+        }
+
+        h1 {
+            font-weight: 800;
+            font-size: 3.2rem;
+            background: linear-gradient(45deg, #1a1a1a, var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 10px 0;
+        }
+
+        .article-content {
+            background: var(--white);
+            padding: 60px;
+            border-radius: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.05);
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            color: #636e72;
+            margin-bottom: 50px;
+            padding: 30px;
+            background: var(--soft-blue);
+            border-radius: 20px;
+            border-left: 5px solid var(--electric-blue);
+        }
+
+        h2 {
+            font-size: 1.7rem;
+            color: #1a1a1a;
+            margin: 40px 0 25px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        h2::before {
+            content: "ID";
+            font-size: 0.7rem;
+            background: var(--primary-blue);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .info-box {
+            padding: 25px;
+            border-radius: 20px;
+            transition: 0.3s;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .info-box.blue { background: var(--soft-blue); }
+        .info-box.silver { background: var(--silver-gradient); }
+
+        .label {
+            display: block;
+            font-weight: 800;
+            font-size: 0.65rem;
+            letter-spacing: 1.5px;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .formula-card {
+            background: #2d3436;
+            color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            margin: 15px 0;
+            border-bottom: 3px solid var(--electric-blue);
+        }
+
+        .product-tags {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .tag {
+            padding: 8px 15px;
+            background: var(--white);
+            border: 1px solid var(--electric-blue);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+
+        .summary-card {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: #f8fafc;
+            padding: 45px;
+            border-radius: 35px;
+            margin-top: 50px;
+        }
+
+        .summary-card h3 { color: var(--electric-blue); margin-bottom: 25px; }
+
+        .list-check {
+            list-style: none;
+            padding: 0;
+        }
+
+        .list-check li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .list-check li::before {
+            content: "✓";
+            color: var(--electric-blue);
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 80px 0;
+            opacity: 0.5;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .info-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="progress-bar"></div>
+
+<div class="container">
+    <header data-aos="fade-down">
+        <span style="letter-spacing: 5px; color: #adb5bd; font-weight: 600; text-transform: uppercase;">Accounts Receivable</span>
+        <h1>Sheet “6. Catatan-Hutang”</h1>
+        <p>Pemantauan Piutang, Cicilan, dan Saldo Debitur</p>
+    </header>
+
+    <article class="article-content" data-aos="fade-up">
+        
+        <div class="intro-text">
+            Tabel ini adalah <strong>Catatan Debitur / Piutang</strong> untuk semua jenis produk jagung: <em>Beras Jagung, Grontol, dan Empok</em>. Fungsinya untuk memantau siapa yang berutang, jumlah cicilan, dan sisa hutang guna menghindari kebingungan dalam penagihan.
+        </div>
+
+        <div class="column-section" data-aos="fade-right">
+            <h2>1. Waktu dan Identitas Debitur</h2>
+            <div class="info-grid">
+                <div class="info-box blue">
+                    <span class="label">Timestamp & No</span>
+                    <p>Mencatat tanggal transaksi kredit dan nomor urut debitur sebagai referensi histori penagihan yang rapi.</p>
+                </div>
+                <div class="info-box silver">
+                    <span class="label">Debtor / Debitur</span>
+                    <p><strong>Tujuan:</strong> Mendata nama pihak yang berutang.</p>
+                    <p><strong>Kegunaan:</strong> Identifikasi target penagihan secara akurat.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="column-section" data-aos="fade-left">
+            <h2>2. Detail Hutang & Status</h2>
+            <div class="info-grid">
+                <div class="info-box blue" style="grid-column: span 2;">
+                    <span class="label">Perhitungan Nilai Piutang</span>
+                    <p>Menghitung total nilai berdasarkan jumlah produk (Kg) dikalikan harga satuan.</p>
+                    <div class="formula-card">
+                        Total Nilai Hutang = Total Jumlah (Kg) × Nilai per Kg
+                    </div>
+                </div>
+                <div class="info-box silver">
+                    <span class="label">Bukti & Cicilan</span>
+                    <p>Menyimpan nota sebagai bukti audit dan mencatat progres pembayaran cicilan (Rp) oleh debitur.</p>
+                </div>
+                <div class="info-box blue">
+                    <span class="label">Sisa Hutang & Status</span>
+                    <p>Menunjukkan saldo yang belum dilunasi dan menandai status (Lunas/Belum) untuk monitoring risiko.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="column-section" data-aos="fade-up">
+            <h2>3. Struktur Produk Terintegrasi</h2>
+            <div class="info-box silver" style="border-left: 4px solid var(--primary-blue);">
+                <p>Format ini diterapkan secara konsisten untuk membandingkan piutang antar produk:</p>
+                <div class="product-tags">
+                    <div class="tag">Beras Jagung</div>
+                    <div class="tag">Grontol</div>
+                    <div class="tag">Empok</div>
+                </div>
+                <p style="margin-top: 15px; font-size: 0.9rem; color: #636e72;">
+                    Memudahkan pencarian debitur terbesar dan pemantauan penunggakan per kategori produk.
+                </p>
+            </div>
+        </div>
+
+        <div class="summary-card" data-aos="zoom-in">
+            <h3>Manfaat Manajemen Piutang</h3>
+            <ul class="list-check">
+                <li><strong>Kontrol Piutang:</strong> Visibilitas penuh terhadap siapa yang berutang dan berapa jumlahnya.</li>
+                <li><strong>Manajemen Cashflow:</strong> Membantu perencanaan penerimaan uang tunai dari piutang jatuh tempo.</li>
+                <li><strong>Monitoring Produk:</strong> Mengetahui produk mana yang paling banyak menyumbang piutang.</li>
+                <li><strong>Dokumentasi & Audit:</strong> Penyimpanan bukti transaksi yang rapi untuk verifikasi internal.</li>
+            </ul>
+        </div>
+
+    </article>
+
+    <footer>
+        <p>Debt Monitoring System &copy; 2025 - 2026 | Financial Health & Transparency By M Rizky Wildzany</p>
+    </footer>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({ duration: 900, once: false });
+</script>
+
+</body>
+</html>
