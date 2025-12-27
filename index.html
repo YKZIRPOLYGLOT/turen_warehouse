@@ -1,252 +1,308 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Turen Dashboard By محمد رزق ويلذاني</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turen Dashboard | KOPTANU Hub</title>
 
-<link rel="manifest" href="manifest.json">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-<style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f0f2f5;
-    margin: 0;
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+    <style>
+        :root {
+            --primary-blue: #0056b3;
+            --electric-blue: #00d4ff;
+            --soft-blue: #f0f7ff;
+            --silver-gradient: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            --text-main: #2d3436;
+            --white: #ffffff;
+            --card-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
 
-  /* ===== INSTALL ONLY SCREEN ===== */
-  #installOnly {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 30px;
-  }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            color: var(--text-main);
+        }
 
-  #installOnly h1 {
-    font-size: 30px;
-    font-weight: 700;
-    background: linear-gradient(90deg, #2575fc, #6a11cb);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 10px;
-  }
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 6px;
+            background: linear-gradient(to right, var(--primary-blue), var(--electric-blue), var(--primary-blue));
+            background-size: 200% auto;
+            animation: moveGradient 3s linear infinite;
+            z-index: 1000;
+        }
 
-  #installOnly p {
-    font-size: 16px;
-    color: #555;
-    margin-bottom: 25px;
-  }
+        @keyframes moveGradient {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
 
-  .install-btn {
-    padding: 14px 30px;
-    font-size: 18px;
-    border-radius: 12px;
-    border: none;
-    background: #2575fc;
-    color: white;
-    cursor: pointer;
-    font-weight: 600;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-  }
+        /* ===== INSTALL ONLY SCREEN ===== */
+        #installOnly {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 40px;
+            background: var(--white);
+            border-radius: 40px;
+            box-shadow: var(--card-shadow);
+            max-width: 500px;
+            margin: 20px;
+            animation: fadeIn 0.8s ease-out;
+        }
 
-  /* ===== APP CONTENT ===== */
-  #appContent {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    padding: 40px 20px;
-  }
+        #installOnly i.fa-download {
+            font-size: 4rem;
+            color: var(--electric-blue);
+            margin-bottom: 20px;
+        }
 
-  .title {
-    font-size: 32px;
-    font-weight: 700;
-    background: linear-gradient(90deg, #2575fc, #6a11cb);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 40px;
-    text-align: center;
-  }
+        #installOnly h1 {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(45deg, #1a1a1a, var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-  .menu {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    width: 90%;
-    max-width: 900px;
-  }
+        .install-btn {
+            padding: 16px 40px;
+            font-size: 18px;
+            border-radius: 15px;
+            border: none;
+            background: linear-gradient(45deg, var(--primary-blue), var(--electric-blue));
+            color: white;
+            cursor: pointer;
+            font-weight: 700;
+            box-shadow: 0 10px 20px rgba(0, 86, 179, 0.2);
+            transition: 0.3s;
+            margin-top: 20px;
+        }
 
-  .menu a {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    background: #fff;
-    border-radius: 15px;
-    padding: 25px;
-    font-size: 18px;
-    font-weight: 600;
-    color: #333;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-    position: relative;
-    overflow: hidden;
-  }
+        .install-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 86, 179, 0.3);
+        }
 
-  .menu a i {
-    font-size: 36px;
-    margin: 8px 0;
-    color: #2575fc;
-  }
+        /* ===== APP CONTENT ===== */
+        #appContent {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            padding: 60px 20px;
+        }
 
-  .menu a:hover {
-    transform: translateY(-7px);
-    box-shadow: 0 15px 25px rgba(0,0,0,0.25);
-  }
+        .title-container {
+            text-align: center;
+            margin-bottom: 50px;
+        }
 
-  .counter {
-    font-size: 16px;
-    font-weight: 700;
-    color: #2575fc;
-    margin-bottom: 5px;
-  }
+        .title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #1a1a1a, var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+        }
 
-  .javanese {
-    font-size: 13px; /* 1.3x bigger than 10px */
-    color: #2575fc;
-    margin-bottom: 3px;
-    text-align: center;
-    line-height: 1;
-  }
+        .subtitle {
+            letter-spacing: 5px;
+            color: #adb5bd;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
 
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1100px;
+        }
 
-  .latin {
-    font-size: 16px;
-    color: #333;
-    margin-top: 5px;
-    text-align: center;
-  }
+        .menu-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
 
-  @media (max-width: 500px) {
-    .menu {
-      grid-template-columns: 1fr;
-    }
-    .title {
-      font-size: 26px;
-    }
-  }
-</style>
+        .menu-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--electric-blue);
+            box-shadow: 0 30px 60px rgba(0, 86, 179, 0.1);
+        }
+
+        .counter {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-weight: 800;
+            color: var(--electric-blue);
+            font-size: 1.2rem;
+            opacity: 0.5;
+        }
+
+        .javanese {
+            font-size: 1.4rem;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .menu-card i {
+            font-size: 3rem;
+            margin: 15px 0;
+            background: linear-gradient(45deg, var(--primary-blue), var(--electric-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .latin {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @media (max-width: 600px) {
+            .title { font-size: 2.2rem; }
+            .menu-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- ===== INSTALL SCREEN ===== -->
-<div id="installOnly">
-  <h1>Install Applikasi "KOPTANU Turen Dashboard"</h1>
-  <p>Monggo dipasang Rumiyen Applikasine, kelawan mencet/click tombol "pasang" ten ngandap niki</p>
-  <button class="install-btn" id="installBtnInstall">
-    Pasang
-  </button>
+<div class="progress-bar"></div>
+
+<div id="installOnly" data-aos="zoom-in">
+    <i class="fas fa-download"></i>
+    <h1>KOPTANU Turen</h1>
+    <p>Monggo dipasang Rumiyen Applikasine, kelawan mencet tombol "Pasang" ten ngandap niki.</p>
+    <button class="install-btn" id="installBtnInstall">
+        PASANG SEKARANG
+    </button>
 </div>
 
-<!-- ===== APP CONTENT ===== -->
 <div id="appContent">
-  <div class="title">Turen Warehouse Dashboard</div>
+    <div class="title-container" data-aos="fade-down">
+        <span class="subtitle">Management System</span>
+        <h1 class="title">Turen Dashboard</h1>
+    </div>
 
-  <div class="menu">
-    <a href="https://forms.gle/b1e3oxiUTXTqKd6K8" target="_blank" class="clickable">
-      <div class="counter">0</div>
-      <div class="javanese">ꦏꦿꦶꦤꦤ</div>
-      <i class="fas fa-cart-shopping"></i>
-      <div class="latin">Purchasing</div>
-    </a>
+    <div class="menu-grid">
+        <a href="https://forms.gle/b1e3oxiUTXTqKd6K8" target="_blank" class="menu-card clickable" data-aos="fade-up" data-aos-delay="100">
+            <span class="counter">0</span>
+            <div class="javanese">ꦏꦿꦶꦤꦤ</div>
+            <i class="fas fa-cart-shopping"></i>
+            <div class="latin">Purchasing</div>
+        </a>
 
-    <a href="https://forms.gle/JM3ucMw5zf6Nz2h38" target="_blank" class="clickable">
-      <div class="counter">0</div>
-      <div class="javanese">ꦥꦔꦿꦶꦥ꧀ꦠꦤ꧀</div>
-      <i class="fas fa-industry"></i>
-      <div class="latin">Produksi</div>
-    </a>
+        <a href="https://forms.gle/JM3ucMw5zf6Nz2h38" target="_blank" class="menu-card clickable" data-aos="fade-up" data-aos-delay="200">
+            <span class="counter">0</span>
+            <div class="javanese">ꦥꦔꦿꦶꦥ꧀ꦠꦤ꧀</div>
+            <i class="fas fa-industry"></i>
+            <div class="latin">Produksi</div>
+        </a>
 
-    <a href="https://forms.gle/YqKsmqwQsoamoPEX7" target="_blank" class="clickable">
-      <div class="counter">0</div>
-      <div class="javanese">ꦮꦂꦠꦨꦺꦪꦥꦔꦿꦶꦥ꧀ꦠꦤ꧀</div>
-      <i class="fas fa-dollar-sign"></i>
-      <div class="latin">Biaya / Info Produksi</div>
-    </a>
+        <a href="https://forms.gle/YqKsmqwQsoamoPEX7" target="_blank" class="menu-card clickable" data-aos="fade-up" data-aos-delay="300">
+            <span class="counter">0</span>
+            <div class="javanese">ꦮꦂꦠꦨꦺꦪꦥꦔꦿꦶꦥ꧀ꦠꦤ꧀</div>
+            <i class="fas fa-money-bill-trend-up"></i>
+            <div class="latin">Biaya Produksi</div>
+        </a>
 
-    <a href="https://forms.gle/cfSu9kUYwRuEdfHu9" target="_blank" class="clickable">
-      <div class="counter">0</div>
-      <div class="javanese">ꦮꦂꦠꦮꦶꦏꦿꦪ</div>
-      <i class="fas fa-chart-line"></i>
-      <div class="latin">Laporan Penjualan</div>
-    </a>
+        <a href="https://forms.gle/cfSu9kUYwRuEdfHu9" target="_blank" class="menu-card clickable" data-aos="fade-up" data-aos-delay="400">
+            <span class="counter">0</span>
+            <div class="javanese">ꦮꦂꦠꦮꦶꦏꦿꦪ</div>
+            <i class="fas fa-chart-line"></i>
+            <div class="latin">Laporan Penjualan</div>
+        </a>
 
-    <a href="login.html" class="clickable">
-      <div class="counter">0</div>
-      <div class="javanese">ꦮꦸꦏꦸꦃꦥꦸꦱ꧀ꦠꦏꦮꦂꦠ</div>
-      <i class="fas fa-table"></i>
-      <div class="latin">Buka Sheet Laporan</div>
-    </a>
-  </div>
+        <a href="login.html" class="menu-card clickable" data-aos="fade-up" data-aos-delay="500" style="background: var(--silver-gradient);">
+            <span class="counter">0</span>
+            <div class="javanese">ꦮꦸꦏꦸꦃꦥꦸꦱ꧀ꦠꦏꦮꦂꦠ</div>
+            <i class="fas fa-file-invoice-dollar"></i>
+            <div class="latin">Buka Sheet Laporan</div>
+        </a>
+    </div>
 </div>
 
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-  // Service Worker
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js');
-  }
+    // Initialize AOS
+    AOS.init({ duration: 800, once: true });
 
-  let deferredPrompt;
-
-  function isInstalled() {
-    return window.matchMedia('(display-mode: standalone)').matches
-      || window.navigator.standalone === true;
-  }
-
-  function updateUI() {
-    if (isInstalled()) {
-      document.getElementById('appContent').style.display = 'flex';
-      document.getElementById('installOnly').style.display = 'none';
-    } else {
-      document.getElementById('appContent').style.display = 'none';
-      document.getElementById('installOnly').style.display = 'flex';
+    // Service Worker
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js');
     }
-  }
 
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
+    let deferredPrompt;
 
-    document.getElementById('installBtnInstall').onclick = async () => {
-      deferredPrompt.prompt();
-      await deferredPrompt.userChoice;
-      deferredPrompt = null;
-    };
-  });
+    function isInstalled() {
+        return window.matchMedia('(display-mode: standalone)').matches
+            || window.navigator.standalone === true;
+    }
 
-  window.addEventListener('load', updateUI);
+    function updateUI() {
+        if (isInstalled()) {
+            document.getElementById('appContent').style.display = 'flex';
+            document.getElementById('installOnly').style.display = 'none';
+        } else {
+            document.getElementById('appContent').style.display = 'none';
+            document.getElementById('installOnly').style.display = 'flex';
+        }
+    }
 
-  // Counter logic
-  document.querySelectorAll('.clickable').forEach(link => {
-    link.addEventListener('click', function () {
-      const counter = this.querySelector('.counter');
-      counter.textContent = parseInt(counter.textContent) + 1;
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+
+        document.getElementById('installBtnInstall').onclick = async () => {
+            deferredPrompt.prompt();
+            await deferredPrompt.userChoice;
+            deferredPrompt = null;
+        };
     });
-  });
+
+    window.addEventListener('load', updateUI);
+
+    // Counter logic
+    document.querySelectorAll('.clickable').forEach(link => {
+        link.addEventListener('click', function () {
+            const counter = this.querySelector('.counter');
+            counter.textContent = parseInt(counter.textContent) + 1;
+        });
+    });
 </script>
 
 </body>
 </html>
-
-
-
