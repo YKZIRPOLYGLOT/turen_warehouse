@@ -100,6 +100,30 @@
             cursor: pointer;
         }
 
+        .back-btn {
+            width: 100%;
+            padding: 14px;
+            font-size: 15px;
+            border-radius: 15px;
+            border: 2px solid #eee;
+            background: transparent;
+            color: #636e72;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #f8f9fa;
+            border-color: #adb5bd;
+            color: var(--text-main);
+        }
+
         footer {
             position: fixed;
             bottom: 20px;
@@ -130,6 +154,10 @@
     <button class="login-btn" onclick="login()">
         <i class="fas fa-sign-in-alt"></i> Mlebu
     </button>
+
+    <button class="back-btn" onclick="goBack()">
+        <i class="fas fa-arrow-left"></i> Balek Nang Menu
+    </button>
 </div>
 
 <footer>SECURE ACCESS © 2025 KOPTANU MANAGEMENT</footer>
@@ -137,10 +165,6 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
 AOS.init({ duration: 900, once: true });
-
-/*
-  SHA-256 HASHES
-*/
 
 const USER_HASH = "0a6b5d1f14b4f9d22f29b0d9989a5c71f85b23cddc0bcb5c0b6a1fa6c7f8b94c";
 const PASS_HASH = "b4f6c76a7e1f9f9c70dbfda5c4d1f7b49e5edc0f55c8c0e5ad9a2fbb5e2c65c1";
@@ -172,8 +196,11 @@ async function login() {
         alert("Jeneng panganggo utawa sandi salah!");
     }
 }
+
+function goBack() {
+    window.history.back();
+}
 </script>
 
 </body>
 </html>
-
