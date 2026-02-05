@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -21,33 +23,9 @@
             --card-shadow: 0 20px 40px rgba(0,0,0,0.08);
         }
 
-        /* =========================
-           DARK MODE (SAFE OVERRIDE)
-        ========================== */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --white: #111827;
-                --text-main: #e5e7eb;
-                --silver-gradient: linear-gradient(135deg, #1f2933 0%, #111827 100%);
-                --card-shadow: 0 20px 40px rgba(0,0,0,0.6);
-            }
-
-            body {
-                background-color: #0f172a;
-            }
-
-            .subtitle {
-                color: #9ca3af;
-            }
-
-            .latin {
-                color: #f9fafb;
-            }
-        }
-
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #034A57;
+            background-color: #808080;
             margin: 0;
             min-height: 100vh;
             display: flex;
@@ -60,8 +38,7 @@
         /* Progress Bar */
         .progress-bar {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 6px;
+            top: 0; left: 0; width: 100%; height: 6px;
             background: linear-gradient(to right, var(--primary-blue), var(--electric-blue), var(--primary-blue));
             background-size: 200% auto;
             animation: moveGradient 3s linear infinite;
@@ -231,7 +208,9 @@
     <i class="fas fa-download"></i>
     <h1>KOPTANU Turen</h1>
     <p>Monggo dipasang Rumiyen Applikasine, kelawan mencet tombol "Pasang" ten ngandap niki.</p>
-    <button class="install-btn" id="installBtnInstall">PASANG SEKARANG</button>
+    <button class="install-btn" id="installBtnInstall">
+        PASANG SEKARANG
+    </button>
 </div>
 
 <div id="appContent">
@@ -242,15 +221,57 @@
     </div>
 
     <div class="menu-grid">
-        <!-- YOUR ORIGINAL MENU ITEMS (UNCHANGED) -->
-        <!-- Kept exactly as provided -->
+        <a href="https://forms.gle/b1e3oxiUTXTqKd6K8" target="_blank" class="menu-card clickable" data-aos="fade-up" data-aos-delay="100">
+            <span class="counter">0</span>
+            <div class="javanese">ꦏꦿꦶꦤꦤ</div>
+            <i class="fas fa-cart-shopping"></i>
+            <div class="latin">Purchasing</div>
+        </a>
+
+        <a href="https://forms.gle/JM3ucMw5zf6Nz2h38" target="_blank" class="menu-card clickable" data-aos="fade-up" data-aos-delay="200">
+            <span class="counter">0</span>
+            <div class="javanese">ꦥꦔꦿꦶꦥ꧀ꦠꦤ꧀</div>
+            <i class="fas fa-industry"></i>
+            <div class="latin">Produksi</div>
+        </a>
+
+        <a href="https://forms.gle/YqKsmqwQsoamoPEX7" target="_blank" class="menu-card clickable" data-aos="fade-up" data-aos-delay="300">
+            <span class="counter">0</span>
+            <div class="javanese">ꦮꦂꦠꦨꦺꦪꦥꦔꦿꦶꦥ꧀ꦠꦤ꧀</div>
+            <i class="fas fa-money-bill-trend-up"></i>
+            <div class="latin">Biaya Produksi</div>
+        </a>
+
+        <a href="https://forms.gle/cfSu9kUYwRuEdfHu9" target="_blank" class="menu-card clickable" data-aos="fade-up" data-aos-delay="400">
+            <span class="counter">0</span>
+            <div class="javanese">ꦮꦂꦠꦮꦶꦏꦿꦪ</div>
+            <i class="fas fa-chart-line"></i>
+            <div class="latin">Laporan Penjualan</div>
+        </a>
+
+        <a href="login.html" class="menu-card clickable" data-aos="fade-up" data-aos-delay="500" style="background: var(--silver-gradient);">
+            <span class="counter">0</span>
+            <div class="javanese">ꦮꦸꦏꦸꦃꦥꦸꦱ꧀ꦠꦏꦮꦂꦠ</div>
+            <i class="fas fa-file-invoice-dollar"></i>
+            <div class="latin">Buka Sheet Laporan</div>
+        </a>
+
+        <a href="daftar_isi.html" class="menu-card clickable" data-aos="fade-up" data-aos-delay="500" style="background: var(--silver-gradient);">
+            <span class="counter">0</span>
+            <div class="javanese">ꦦꦼꦂꦠꦺꦭꦤꦶꦁꦥꦿꦝꦤ</div>
+            <i class="fas fa-info-circle"></i>
+            <div class="latin">Keterangan dan Penjelasan</div>
+
+        </a>        
     </div>
 </div>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
+    // Initialize AOS
     AOS.init({ duration: 800, once: true });
 
+    // Service Worker
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('service-worker.js');
     }
@@ -275,6 +296,7 @@
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
+
         document.getElementById('installBtnInstall').onclick = async () => {
             deferredPrompt.prompt();
             await deferredPrompt.userChoice;
@@ -284,6 +306,7 @@
 
     window.addEventListener('load', updateUI);
 
+    // Counter logic
     document.querySelectorAll('.clickable').forEach(link => {
         link.addEventListener('click', function () {
             const counter = this.querySelector('.counter');
@@ -294,3 +317,4 @@
 
 </body>
 </html>
+
