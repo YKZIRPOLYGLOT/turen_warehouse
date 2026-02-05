@@ -15,20 +15,20 @@
            THEME VARIABLES
         ====================== */
         :root {
-            /* Light Mode */
-            --primary-blue: #0056b3;
-            --electric-blue: #00d4ff;
+            /* LIGHT MODE */
+            --primary-blue: #2563eb;
+            --electric-blue: #38bdf8;
 
-            --bg-main: #034A57;
-            --bg-card: #ffffff;
-            --bg-card-alt: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            --bg-main: #e5e7eb;          /* grey background */
+            --bg-card: #d1d5db;          /* darker grey cards */
+            --bg-card-alt: #cbd5e1;
 
-            --text-main: #2d3436;
-            --text-muted: #adb5bd;
-            --text-strong: #1a1a1a;
+            --text-main: #1f2937;        /* dark readable text */
+            --text-muted: #4b5563;
+            --text-strong: #111827;
 
-            --card-shadow: 0 20px 40px rgba(0,0,0,0.08);
-            --border-soft: rgba(0, 212, 255, 0.1);
+            --card-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            --border-soft: rgba(0,0,0,0.15);
         }
 
         /* =====================
@@ -36,16 +36,16 @@
         ====================== */
         @media (prefers-color-scheme: dark) {
             :root {
-                --bg-main: #0b1f24;
-                --bg-card: #111827;
-                --bg-card-alt: linear-gradient(135deg, #1f2933 0%, #111827 100%);
+                --bg-main: #1f2933;      /* dark grey background */
+                --bg-card: #111827;      /* darker boxes */
+                --bg-card-alt: #0f172a;
 
                 --text-main: #e5e7eb;
                 --text-muted: #9ca3af;
                 --text-strong: #f9fafb;
 
-                --card-shadow: 0 20px 40px rgba(0,0,0,0.5);
-                --border-soft: rgba(0, 212, 255, 0.2);
+                --card-shadow: 0 20px 40px rgba(0,0,0,0.6);
+                --border-soft: rgba(255,255,255,0.1);
             }
         }
 
@@ -60,15 +60,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow-x: hidden;
             color: var(--text-main);
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* Progress Bar */
         .progress-bar {
             position: fixed;
-            top: 0; left: 0;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 6px;
             background: linear-gradient(to right, var(--primary-blue), var(--electric-blue), var(--primary-blue));
@@ -92,31 +91,26 @@
             text-align: center;
             padding: 40px;
             background: var(--bg-card);
-            border-radius: 40px;
+            border-radius: 30px;
             box-shadow: var(--card-shadow);
             max-width: 500px;
-            margin: 20px;
-            animation: fadeIn 0.8s ease-out;
         }
 
         #installOnly i {
             font-size: 4rem;
             color: var(--electric-blue);
-            margin-bottom: 20px;
         }
 
         #installOnly h1 {
             font-size: 28px;
             font-weight: 800;
-            background: linear-gradient(45deg, var(--text-strong), var(--primary-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--text-strong);
         }
 
         .install-btn {
             padding: 16px 40px;
             font-size: 18px;
-            border-radius: 15px;
+            border-radius: 14px;
             border: none;
             background: linear-gradient(45deg, var(--primary-blue), var(--electric-blue));
             color: white;
@@ -142,15 +136,13 @@
         }
 
         .title {
-            font-size: 3.5rem;
+            font-size: 3rem;
             font-weight: 800;
-            background: linear-gradient(45deg, var(--text-strong), var(--primary-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--text-strong);
         }
 
         .subtitle {
-            letter-spacing: 5px;
+            letter-spacing: 4px;
             color: var(--text-muted);
             font-weight: 600;
             text-transform: uppercase;
@@ -170,7 +162,7 @@
         .menu-card {
             background: var(--bg-card);
             padding: 30px;
-            border-radius: 30px;
+            border-radius: 25px;
             text-decoration: none;
             color: var(--text-main);
             box-shadow: var(--card-shadow);
@@ -180,46 +172,38 @@
             align-items: center;
             text-align: center;
             position: relative;
-            transition: 0.3s;
+            transition: transform 0.25s ease;
         }
 
         .menu-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--electric-blue);
+            transform: translateY(-6px);
         }
 
         .counter {
             position: absolute;
-            top: 20px;
-            right: 25px;
+            top: 18px;
+            right: 22px;
             font-weight: 800;
-            color: var(--electric-blue);
-            opacity: 0.6;
+            color: var(--primary-blue);
+            opacity: 0.7;
         }
 
         .javanese {
-            font-size: 1.4rem;
-            color: var(--primary-blue);
+            font-size: 1.3rem;
+            color: var(--text-muted);
             font-weight: 300;
         }
 
         .menu-card i {
             font-size: 3rem;
             margin: 15px 0;
-            background: linear-gradient(45deg, var(--primary-blue), var(--electric-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--primary-blue);
         }
 
         .latin {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: 700;
             color: var(--text-strong);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
         }
 
         @media (max-width: 600px) {
@@ -233,7 +217,7 @@
 
 <div class="progress-bar"></div>
 
-<div id="installOnly" data-aos="zoom-in">
+<div id="installOnly">
     <i class="fas fa-download"></i>
     <h1>KOPTANU Turen</h1>
     <p>Monggo dipasang Rumiyen Applikasine.</p>
@@ -241,7 +225,7 @@
 </div>
 
 <div id="appContent">
-    <div class="title-container" data-aos="fade-down">
+    <div class="title-container">
         <span class="subtitle">Management System</span>
         <h1 class="title">Turen Dashboard</h1>
         <span class="subtitle">Version 3.1</span>
@@ -260,10 +244,6 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     AOS.init({ duration: 800, once: true });
-
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('service-worker.js');
-    }
 
     function isInstalled() {
         return window.matchMedia('(display-mode: standalone)').matches;
